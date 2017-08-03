@@ -55,7 +55,13 @@ RUN conda install -y --channel https://conda.anaconda.org/menpo opencv3 && \
     conda clean -yt
 
 ENV PYTHONPATH='/src/:$PYTHONPATH'
-
+#################################################################################################################
+#           Keras Adversarial Models
+#               https://github.com/bstriner/keras-adversarial
+#################################################################################################################
+RUN git clone https://github.com/bstriner/keras_adversarial.git && \
+    cd keras_adversarial && \
+    python setup.py install
 #################################################################################################################
 #           WORK Jupyter
 #################################################################################################################
