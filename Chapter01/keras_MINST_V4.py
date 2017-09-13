@@ -5,8 +5,8 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.optimizers import RMSprop
 from keras.utils import np_utils
+from make_tensorboard import make_tensorboard
 
-import matplotlib.pyplot as plt
 
 np.random.seed(1671)  # for reproducibility
 
@@ -56,33 +56,18 @@ model.add(Dense(NB_CLASSES))
 model.add(Activation('softmax'))
 model.summary()
 
+callbacks = [make_tensorboard(set_dir_name='keras_MINST_V3')]
+
 model.compile(loss='categorical_crossentropy',
               optimizer=OPTIMIZER,
               metrics=['accuracy'])
 
 history = model.fit(X_train, Y_train,
                     batch_size=BATCH_SIZE, epochs=NB_EPOCH,
+                    callbacks=callbacks,
                     verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
 
 score = model.evaluate(X_test, Y_test, verbose=VERBOSE)
 print("\nTest score:", score[0])
 print('Test accuracy:', score[1])
 
-# list all data in history
-print(history.history.keys())
-# summarize history for accuracy
-plt.plot(history.history['acc'])
-plt.plot(history.history['val_acc'])
-plt.title('model accuracy')
-plt.ylabel('accuracy')
-plt.xlabel('epoch')
-plt.legend(['train', 'test'], loc='upper left')
-plt.show()
-# summarize history for loss
-plt.plot(history.history['loss'])
-plt.plot(history.history['val_loss'])
-plt.title('model loss')
-plt.ylabel('loss')
-plt.xlabel('epoch')
-plt.legend(['train', 'test'], loc='upper left')
-plt.show()
