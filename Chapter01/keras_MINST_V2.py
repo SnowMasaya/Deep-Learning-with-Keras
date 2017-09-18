@@ -5,6 +5,7 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Activation
 from keras.optimizers import SGD
 from keras.utils import np_utils
+from make_tensorboard import make_tensorboard
 
 np.random.seed(1671)  # for reproducibility
 
@@ -55,8 +56,11 @@ model.compile(loss='categorical_crossentropy',
               optimizer=OPTIMIZER,
               metrics=['accuracy'])
 
+callbacks = [make_tensorboard(set_dir_name='keras_MINST_V3')]
+
 history = model.fit(X_train, Y_train,
                     batch_size=BATCH_SIZE, epochs=NB_EPOCH,
+                    callbacks=callbacks,
                     verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
 
 score = model.evaluate(X_test, Y_test, verbose=VERBOSE)
