@@ -3,7 +3,7 @@ import numpy as np
 from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
-from keras.optimizers import RMSprop
+from keras.optimizers import RMSprop, Adam
 from keras.utils import np_utils
 from make_tensorboard import make_tensorboard
 
@@ -15,7 +15,8 @@ NB_EPOCH = 20
 BATCH_SIZE = 128
 VERBOSE = 1
 NB_CLASSES = 10   # number of outputs = number of digits
-OPTIMIZER = RMSprop()  # optimizer, explainedin this chapter
+# OPTIMIZER = RMSprop()  # optimizer, explainedin this chapter
+OPTIMIZER = Adam()  # optimizer, explainedin this chapter
 N_HIDDEN = 128
 VALIDATION_SPLIT = 0.2  # how much TRAIN is reserved for VALIDATION
 DROPOUT = 0.3
@@ -56,7 +57,7 @@ model.add(Dense(NB_CLASSES))
 model.add(Activation('softmax'))
 model.summary()
 
-callbacks = [make_tensorboard(set_dir_name='keras_MINST_V4')]
+callbacks = [make_tensorboard(set_dir_name='keras_MINST_V4_adam')]
 
 model.compile(loss='categorical_crossentropy',
               optimizer=OPTIMIZER,
