@@ -11,5 +11,5 @@ def make_tensorboard(set_dir_name=''):
     directory_name = tictoc
     log_dir = set_dir_name + '_' + directory_name
     os.mkdir(log_dir)
-    tensorboard = TensorBoard(log_dir=log_dir, write_graph=True, )
+    tensorboard = TensorBoard(log_dir=log_dir)
     return tensorboard
