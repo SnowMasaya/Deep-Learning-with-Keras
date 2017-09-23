@@ -5,8 +5,9 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Activation
 from keras.optimizers import SGD
 from keras.utils import np_utils
-from make_tensorboard import make_tensorboard
+from make_tensorboard_model import make_tensorboard
 import tensorflow as tf
+
 
 np.random.seed(1671)  # for reproducibility
 
