@@ -5,7 +5,7 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.optimizers import RMSprop
 from keras.utils import np_utils
-from make_tensorboard import make_tensorboard
+from make_tensorboard_model import make_tensorboard
 import tensorflow as tf
 
 

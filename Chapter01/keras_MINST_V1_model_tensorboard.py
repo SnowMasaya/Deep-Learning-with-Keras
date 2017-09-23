@@ -8,6 +8,7 @@ from keras.utils import np_utils
 from make_tensorboard import make_tensorboard
 import tensorflow as tf
 
+
 np.random.seed(1671)  # for reproducibility
 
 # network and training
