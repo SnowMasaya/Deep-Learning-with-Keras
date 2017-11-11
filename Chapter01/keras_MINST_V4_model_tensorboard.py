@@ -4,10 +4,21 @@ from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.optimizers import RMSprop
+from keras.optimizers import Adam
 from keras.utils import np_utils
 from make_tensorboard_model import make_tensorboard
 import tensorflow as tf
+import argparse
 
+
+parser = argparse.ArgumentParser(description="keras Mnist v4 model")
+
+parser.add_argument("-o", "--optimizer", metavar="optimizer",
+                    dest="optimizer",
+                    type=str, default='rmsprop',
+                    help="choose optimizer rmsprop or adam")
+
+args = parser.parse_args()
 
 np.random.seed(1671)  # for reproducibility
 
@@ -16,7 +27,10 @@ NB_EPOCH = 20
 BATCH_SIZE = 128
 VERBOSE = 1
 NB_CLASSES = 10   # number of outputs = number of digits
-OPTIMIZER = RMSprop()  # optimizer, explainedin this chapter
+if args.optimizer == 'rmsprop':
+    OPTIMIZER = RMSprop()  # optimizer, explainedin this chapter
+elif args.optimizer == 'adam':
+    OPTIMIZER = Adam()  # optimizer, explainedin this chapter
 N_HIDDEN = 128
 VALIDATION_SPLIT = 0.2  # how much TRAIN is reserved for VALIDATION
 DROPOUT = 0.3
@@ -74,7 +88,7 @@ with tf.name_scope('Model') as scope:
 
     model.summary()
 
-callbacks = [make_tensorboard(set_dir_name='keras_MINST_V4')]
+callbacks = [make_tensorboard(set_dir_name='keras_MINST_V4_' + args.optimizer)]
 
 with tf.name_scope('ModelCompile') as scope:
     model.compile(loss='categorical_crossentropy',
